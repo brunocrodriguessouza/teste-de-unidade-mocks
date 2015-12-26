@@ -3,15 +3,21 @@ package br.com.caelum.leilao.servico;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.caelum.dominio.RepositorioDeLeiloes;
 import br.com.caelum.leilao.dominio.Leilao;
 import br.com.caelum.leilao.infra.dao.LeilaoDao;
+import br.com.caelum.leilao.infra.dao.LeilaoDaoFalso;
 
 public class EncerradorDeLeilao {
 
 	private int total = 0;
+	private final RepositorioDeLeiloes dao;
+
+	public EncerradorDeLeilao(RepositorioDeLeiloes dao) {
+		this.dao = dao;
+	}
 
 	public void encerra() {
-		LeilaoDao dao = new LeilaoDao();
 		List<Leilao> todosLeiloesCorrentes = dao.correntes();
 
 		for (Leilao leilao : todosLeiloesCorrentes) {
