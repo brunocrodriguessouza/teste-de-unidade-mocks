@@ -3,6 +3,7 @@ package br.com.caelum.leilao.servico;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.caelum.dominio.EnviadorDeEmail;
 import br.com.caelum.dominio.RepositorioDeLeiloes;
 import br.com.caelum.leilao.dominio.Leilao;
 import br.com.caelum.leilao.infra.dao.LeilaoDao;
@@ -12,9 +13,11 @@ public class EncerradorDeLeilao {
 
 	private int total = 0;
 	private final RepositorioDeLeiloes dao;
+	private final EnviadorDeEmail carteiro;
 
-	public EncerradorDeLeilao(RepositorioDeLeiloes dao) {
+	public EncerradorDeLeilao(RepositorioDeLeiloes dao, EnviadorDeEmail carteiro ) {
 		this.dao = dao;
+		this.carteiro = carteiro;
 	}
 
 	public void encerra() {
