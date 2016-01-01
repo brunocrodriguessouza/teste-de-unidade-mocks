@@ -37,5 +37,7 @@ public class LeilaoDaoFalso implements RepositorioDeLeiloes {
 	}
 
 	public void atualiza(Leilao leilao) { /* faz nada! */
+		System.out.println("Executando atualiza da classe mockada");
 	}
+	
 }

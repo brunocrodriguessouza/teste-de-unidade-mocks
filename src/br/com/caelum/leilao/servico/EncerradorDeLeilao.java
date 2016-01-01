@@ -3,11 +3,9 @@ package br.com.caelum.leilao.servico;
 import java.util.Calendar;
 import java.util.List;
 
-import br.com.caelum.dominio.EnviadorDeEmail;
 import br.com.caelum.dominio.RepositorioDeLeiloes;
 import br.com.caelum.leilao.dominio.Leilao;
-import br.com.caelum.leilao.infra.dao.LeilaoDao;
-import br.com.caelum.leilao.infra.dao.LeilaoDaoFalso;
+import br.com.caelum.leilao.infra.email.EnviadorDeEmail;
 
 public class EncerradorDeLeilao {
 
@@ -24,11 +22,20 @@ public class EncerradorDeLeilao {
 		List<Leilao> todosLeiloesCorrentes = dao.correntes();
 
 		for (Leilao leilao : todosLeiloesCorrentes) {
-			if (comecouSemanaPassada(leilao)) {
-				leilao.encerra();
-				total++;
-				dao.atualiza(leilao);
+			try{
+				if (comecouSemanaPassada(leilao)) {
+					leilao.encerra();
+					total++;
+					dao.atualiza(leilao);
+					
+					// enviar email
+					carteiro.envia(leilao);
+				}
+			}catch(Exception e){
+				// loga a excecao e continua
 			}
+			
+
 		}
 	}
 
